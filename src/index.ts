@@ -7,6 +7,7 @@ import log from "./utils/logger";
 import connectDB from "./config/db";
 import userRouter from "./routes/auth";
 import bodyParser from 'body-parser';
+import productRouter from "./routes/product";
 
 const port = config.port;
 const server: Express = express();
@@ -28,6 +29,8 @@ server.use(
 );
 
 server.use("/", userRouter);
+server.use("/api", productRouter);
+
 
 connectDB()
 .then(async () => {
