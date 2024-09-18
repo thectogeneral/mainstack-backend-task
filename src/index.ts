@@ -3,17 +3,15 @@ require("dotenv").config();
 import cors from "cors";
 import express, { Express, Request, Response } from "express";
 import config from "./config";
-import log from "./utils/logger";
-import connectDB from "./config/db";
+//import log from "./utils/logger";
+import { connectDB } from "./config/db";
 import userRouter from "./routes/auth";
-import bodyParser from 'body-parser';
 import productRouter from "./routes/product";
 
 const port = config.port;
 const server: Express = express();
 
-server.use(bodyParser.json());
-
+server.use(express.json());
 server.options("*", cors());
 server.use(
   cors({
@@ -35,7 +33,7 @@ server.use("/api", productRouter);
 connectDB()
 .then(async () => {
   server.listen(port, () => {
-    log.info(`Server is listening on port ${port}`);
+    //log.info(`Server is listening on port ${port}`);
   });
 })
 
@@ -44,7 +42,7 @@ connectDB()
  *
  * @param {Error} error - The error object caught from the Promise chain.
  */
-.catch((error: Error) => log.error(error));
+.catch((error: Error) => console.error(error));
 
 
 

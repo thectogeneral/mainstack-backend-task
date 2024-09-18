@@ -33,7 +33,6 @@ export const getProduct = async (req: Request, res: Response) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 export const updateProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {

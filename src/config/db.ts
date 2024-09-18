@@ -1,4 +1,4 @@
-import log from "../utils/logger";
+// import log from "../utils/logger";
 import mongoose from "mongoose";
 import config from "./";
 
@@ -6,10 +6,20 @@ import config from "./";
 const connectDB = async (): Promise<void> => {
   try {
     await mongoose.connect(config.MONGO_URI as string);
-    log.info("DB connected successfully");
+    // console.info("DB connected successfully");
   } catch (err) {
-    log.error("DB connection failed", err);
+    // console.error("DB connection failed", err);
   }
 };
 
-export default connectDB;
+// close the database connection
+const closeDB = async (): Promise<void> => {
+  try {
+    await mongoose.connection.close();
+    // console.info("DB connection closed");
+  } catch (err) {
+    // console.error("Failed to close DB connection", err);
+  }
+};
+
+export { connectDB, closeDB };

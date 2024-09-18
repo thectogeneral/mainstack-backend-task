@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   mongo:
     image: mongo
@@ -17,7 +16,7 @@ services:
       MONGO_URL: mongodb://mongo:27017/store
     volumes:
       - .:/app
-    command: npm run dev
+    command: npm run start:dev
 
 volumes:
   mongo-data:
