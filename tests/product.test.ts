@@ -2,6 +2,7 @@ import request from 'supertest';
 import server, { closeServer } from '../src';
 import Product from '../src/models/product';
 import jwt from 'jsonwebtoken';
+import { closeDB } from '../src/config/db';
 
 jest.mock('../src/models/product');
 
@@ -26,7 +27,8 @@ describe('Product API with Mock Data', () => {
   });
 
   afterAll(async () => {
-    closeServer()
+    await closeDB();
+    await closeServer();
   }, 10000);
 
 
@@ -39,6 +41,8 @@ describe('Product API with Mock Data', () => {
         .post('/api/products')
         .set('Authorization', `Bearer ${token}`)
         .send(mockProductData);
+
+      console.log
 
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('_id');

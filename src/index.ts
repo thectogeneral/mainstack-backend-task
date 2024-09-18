@@ -27,7 +27,7 @@ server.use(
 );
 
 server.use("/", userRouter);
-server.use("/api", productRouter);
+server.use("/api/v1", productRouter);
 
 
 let serverInstance: any; // To store the reference to the running server
@@ -46,9 +46,7 @@ connectDB()
  */
 export const closeServer = () => {
   if (serverInstance) {
-    serverInstance.close(() => {
-      console.log("Server closed");
-    });
+    serverInstance.close()
   }
 };
 
