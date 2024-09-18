@@ -1,9 +1,8 @@
 import request from 'supertest';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import server from '../src';
+import server, {closeServer} from '../src';
 import User from '../src/models/user';
-import { connectDB, closeDB } from '../src/config/db';
 
 jest.mock('bcryptjs');
 jest.mock('jsonwebtoken');
@@ -16,13 +15,8 @@ const mockUser = {
 };
 
 describe('Auth Controller', () => {
-
-    beforeAll(async () => {
-        await connectDB(); // Ensure the database connection is established before tests
-    });
-
     afterAll(async () => {
-        await closeDB(); // Ensure the database connection is closed after tests
+        closeServer()
     });
 
     describe('POST /signup', () => {

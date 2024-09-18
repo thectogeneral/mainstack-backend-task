@@ -22,7 +22,11 @@
    npm install
    ```
 
-3. **Run Locally:**
+3. **Add environment variables**
+
+   - Add the env variable (MONGO_URI, JWT_SECRET)
+
+4. **Run Locally:**
 
    - Start the application in development mode:
 
@@ -32,7 +36,7 @@
 
    - Open your browser and visit [http://localhost:4000](http://localhost:4000).
 
-4. **Run with Docker:**
+5. **Run with Docker:**
 
    Ensure Docker is installed. If Docker is not already installed,
 
@@ -51,7 +55,7 @@
 
    This script uses Docker to build and run the application. Check your terminal for container logs.
 
-5. **Testing:**
+6. **Testing:**
 
    To run tests, use:
 

@@ -1,8 +1,7 @@
 import request from 'supertest';
-import server from '../src';
+import server, { closeServer } from '../src';
 import Product from '../src/models/product';
 import jwt from 'jsonwebtoken';
-import { connectDB, closeDB } from '../src/config/db';
 
 jest.mock('../src/models/product');
 
@@ -24,12 +23,11 @@ describe('Product API with Mock Data', () => {
 
   beforeAll(async () => {
     token = generateAuthToken();
-    await connectDB();
   });
 
-afterAll(async () => {
-    await closeDB(); // Ensure the database connection is closed after tests
-}, 10000);
+  afterAll(async () => {
+    closeServer()
+  }, 10000);
 
 
   describe('POST /api/products', () => {

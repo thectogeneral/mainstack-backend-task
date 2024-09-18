@@ -8,7 +8,7 @@ import { connectDB } from "./config/db";
 import userRouter from "./routes/auth";
 import productRouter from "./routes/product";
 
-const port = config.port;
+const port = config.port || 4000;
 const server: Express = express();
 
 server.use(express.json());
@@ -30,20 +30,27 @@ server.use("/", userRouter);
 server.use("/api", productRouter);
 
 
+let serverInstance: any; // To store the reference to the running server
+
 connectDB()
-.then(async () => {
-  server.listen(port, () => {
-    //log.info(`Server is listening on port ${port}`);
-  });
-})
+  .then(async () => {
+    serverInstance = server.listen(port, () => {
+      //console.log(`Server is listening on port ${port}`);
+    });
+  })
+  .catch((error: Error) => console.error(error));
 
 /**
- * Catches any errors that occur in the preceding Promise chain and logs the error.
- *
- * @param {Error} error - The error object caught from the Promise chain.
+ * Function to close the server instance.
+ * Useful for gracefully shutting down the server in tests.
  */
-.catch((error: Error) => console.error(error));
-
+export const closeServer = () => {
+  if (serverInstance) {
+    serverInstance.close(() => {
+      console.log("Server closed");
+    });
+  }
+};
 
 
 export default server;
